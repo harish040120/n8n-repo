@@ -21,36 +21,74 @@ services:
     # All environment variables defined below are required!
     #
     # You can define additional environment variables as needed.
-    envVars:
-      # Generates a base64-encoded key for
-      # encrypting credentials in n8n
-      #
-      # Do not modify this value after it's generated!
-      # If you do, you'll lose access to all credentials
-      # encrypted with the previous value.
-      - key: N8N_ENCRYPTION_KEY
-        generateValue: true
+envVars:
 
-      # These automatically populate connection details 
-      # for the Render Postgres database defined below
-      - key: DB_TYPE
-        value: postgresdb
-      - key: DB_POSTGRESDB_DATABASE
-        fromDatabase:
-          name: n8n-db
-          property: database
-      - key: DB_POSTGRESDB_HOST
-        fromDatabase:
-          name: n8n-db
-          property: host
-      - key: DB_POSTGRESDB_PASSWORD
-        fromDatabase:
-          name: n8n-db
-          property: password
-      - key: DB_POSTGRESDB_USER
-        fromDatabase:
-          name: n8n-db
-          property: user
+  - key: N8N_ENCRYPTION_KEY
+    generateValue: true
+
+  - key: DB_TYPE
+    value: postgresdb
+
+  - key: DB_POSTGRESDB_DATABASE
+    fromDatabase:
+      name: n8n-db
+      property: database
+
+  - key: DB_POSTGRESDB_HOST
+    fromDatabase:
+      name: n8n-db
+      property: host
+  
+  - key: DB_POSTGRESDB_PORT
+    fromDatabase:
+      name: n8n-db
+      property: port
+  
+  - key: DB_POSTGRESDB_USER
+    fromDatabase:
+      name: n8n-db
+      property: user
+  
+  - key: DB_POSTGRESDB_PASSWORD
+    fromDatabase:
+      name: n8n-db
+      property: password
+  
+  - key: NODE_OPTIONS
+    value: "--max-old-space-size=384"
+  
+  - key: N8N_RUNNERS_ENABLED
+    value: "false"
+  
+  - key: EXECUTIONS_MODE
+    value: regular
+  
+  - key: N8N_CONCURRENCY_PRODUCTION_LIMIT
+    value: "1"
+  
+  - key: EXECUTIONS_DATA_SAVE_ON_SUCCESS
+    value: none
+  
+  - key: EXECUTIONS_DATA_SAVE_MANUAL_EXECUTIONS
+    value: "false"
+  
+  - key: N8N_DIAGNOSTICS_ENABLED
+    value: "false"
+  
+  - key: N8N_TEMPLATES_ENABLED
+    value: "false"
+  
+  - key: N8N_PERSONALIZATION_ENABLED
+    value: "false"
+  
+  - key: N8N_VERSION_NOTIFICATIONS_ENABLED
+    value: "false"
+  
+  - key: N8N_PUBLIC_API_DISABLED
+    value: "true"
+  
+  - key: N8N_METRICS
+    value: "false"
 
 databases:
   - name: n8n-db
